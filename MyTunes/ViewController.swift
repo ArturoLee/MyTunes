@@ -50,6 +50,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tunesTableView.dequeueReusableCell(withIdentifier: cellResuseId, for: indexPath) as! MediaTableViewCell
         cell.media = fetchedMedia[indexPath.row]
+        cell.rankLabel.text = String(indexPath.row+1)
         return cell
     }
     

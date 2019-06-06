@@ -39,6 +39,15 @@ class MediaTableViewCell: UITableViewCell {
         return label
     }()
     
+    let rankLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 1
+        return label
+    }()
+    
     let coverImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -68,14 +77,18 @@ class MediaTableViewCell: UITableViewCell {
         self.stackView.addArrangedSubview(subTitleLabel)
         self.contentView.addSubview(coverImageView)
         self.contentView.addSubview(stackView)
+        self.contentView.addSubview(rankLabel)
         
         coverImageView.centerYAnchor.constraint(equalTo:self.contentView.centerYAnchor).isActive = true
         coverImageView.leadingAnchor.constraint(equalTo:self.contentView.leadingAnchor).isActive = true
         coverImageView.widthAnchor.constraint(equalToConstant:100).isActive = true
         coverImageView.heightAnchor.constraint(equalToConstant:100).isActive = true
         
+        rankLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
+        rankLabel.leadingAnchor.constraint(equalTo: self.coverImageView.trailingAnchor, constant: 10).isActive = true
+        
         stackView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: self.coverImageView.trailingAnchor, constant: 15).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: self.rankLabel.trailingAnchor, constant: 10).isActive = true
         stackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10).isActive = true
         
     }
