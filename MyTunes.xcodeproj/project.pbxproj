@@ -14,6 +14,7 @@
 		8F73BAF422A87F4D007B4ABE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F73BAF222A87F4D007B4ABE /* LaunchScreen.storyboard */; };
 		8F73BAFF22A87F4D007B4ABE /* MyTunesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73BAFE22A87F4D007B4ABE /* MyTunesTests.swift */; };
 		8F73BB0A22A87F4D007B4ABE /* MyTunesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73BB0922A87F4D007B4ABE /* MyTunesUITests.swift */; };
+		8F73BB1822A88100007B4ABE /* MediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73BB1722A88100007B4ABE /* MediaTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		8F73BB0522A87F4D007B4ABE /* MyTunesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyTunesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F73BB0922A87F4D007B4ABE /* MyTunesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTunesUITests.swift; sourceTree = "<group>"; };
 		8F73BB0B22A87F4D007B4ABE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F73BB1722A88100007B4ABE /* MediaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				8F73BAE922A87F4A007B4ABE /* AppDelegate.swift */,
+				8F73BB1722A88100007B4ABE /* MediaTableViewCell.swift */,
 				8F73BAEB22A87F4A007B4ABE /* ViewController.swift */,
 				8F73BAED22A87F4A007B4ABE /* Main.storyboard */,
 				8F73BAF022A87F4D007B4ABE /* Assets.xcassets */,
@@ -257,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F73BAEC22A87F4A007B4ABE /* ViewController.swift in Sources */,
+				8F73BB1822A88100007B4ABE /* MediaTableViewCell.swift in Sources */,
 				8F73BAEA22A87F4A007B4ABE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
