@@ -11,32 +11,45 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var tunesTableView: UITableView!
-    var appleMusicMedia: [AppleMusicMedia] = []
-    
+    var fetchedMedia: [MusicMedia] = []
     let cellResuseId = "cell"
+    
+    let mediaControl = UISegmentedControl(items: ["iTunes", "Apple"])
+    let feedControl = UISegmentedControl(items: ["Songs", "Albums"])
+    var selectedMedia: MediaType {
+        get {
+            if mediaControl.selectedSegmentIndex == 0 {
+                return .iTunes
+            }
+            return .apple
+        }
+    }
+    var selectedFeed: FeedType {
+        get {
+            if feedControl.selectedSegmentIndex == 0 {
+                return .topSongs
+            }
+            return .topAlbums
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tunesTableView = UITableView(frame: self.view.frame)
-        tunesTableView.register(MediaTableViewCell.self, forCellReuseIdentifier: cellResuseId)
-        tunesTableView.dataSource = self
-        tunesTableView.delegate = self
-        self.view.addSubview(tunesTableView)
         setupTableView()
+        setupSegmentedControls()
+        requestMediaData()
         
-        getiTunesMediaData()
-        
-        navigationItem.title = "MyTunes"
+        navigationItem.title = "Top 50"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return appleMusicMedia.count
+        return fetchedMedia.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tunesTableView.dequeueReusableCell(withIdentifier: cellResuseId, for: indexPath) as! MediaTableViewCell
-        cell.media = appleMusicMedia[indexPath.row]
+        cell.media = fetchedMedia[indexPath.row]
         return cell
     }
     
@@ -45,93 +58,58 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func setupTableView() {
+        tunesTableView = UITableView(frame: self.view.frame)
+        tunesTableView.register(MediaTableViewCell.self, forCellReuseIdentifier: cellResuseId)
+        tunesTableView.dataSource = self
+        tunesTableView.delegate = self
+        self.view.addSubview(tunesTableView)
         tunesTableView.translatesAutoresizingMaskIntoConstraints = false
         tunesTableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tunesTableView.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
         tunesTableView.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
         tunesTableView.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
+        tunesTableView.allowsSelection = false
+        tunesTableView.separatorStyle = .none
     }
     
-    //MARK: Model
+    func setupSegmentedControls() {
+        mediaControl.selectedSegmentIndex = 0
+        feedControl.selectedSegmentIndex = 0
+        mediaControl.addTarget(self, action: #selector(requestMediaData), for: .valueChanged)
+        feedControl.addTarget(self, action: #selector(requestMediaData), for: .valueChanged)
+        let controlStack = UIStackView()
+        controlStack.axis = .horizontal
+        controlStack.alignment = UIStackView.Alignment.center
+        controlStack.spacing = 5
+        controlStack.translatesAutoresizingMaskIntoConstraints = false
+        controlStack.addArrangedSubview(mediaControl)
+        controlStack.addArrangedSubview(feedControl)
+        navigationItem.titleView = controlStack
+    }
     
-    func getiTunesMediaData() {
-        let url = URL(string:"https://rss.itunes.apple.com/api/v1/us/apple-music/coming-soon/all/30/explicit.json")!
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "ServerError")
+    @objc func requestMediaData() {
+        MediaAPI.getMedia(type: selectedMedia, feed: selectedFeed, fetchSize: 50) { (mediaResults) in
+            guard let results = mediaResults else {
+                self.fetchedMedia = []
+                DispatchQueue.main.async {self.tunesTableView.reloadData()}
                 return
             }
-            let json = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let dic = json! as? [String:Any], let feed = dic["feed"] as? [String:Any], let results = feed["results"] as? [[String:Any]] {
-                self.appleMusicMedia = []
-                for i in 0..<results.count {
-                    let media = results[i]
-                    if let musicMedia = AppleMusicMedia(feedResult: media) {
-                        self.appleMusicMedia.append(musicMedia)
-                        self.fetchArtworkFor(index: i)
-                    }
+            self.fetchedMedia = results
+            self.requestArtwork()
+            DispatchQueue.main.async {self.tunesTableView.reloadData()}
+        }
+    }
+    
+    func requestArtwork() {
+        for i in 0..<self.fetchedMedia.count {
+            let media = fetchedMedia[i]
+            MediaAPI.getArtwork(artworkURL: media.artworkUrl100) { (image) in
+                self.fetchedMedia[i].image = image
+                DispatchQueue.main.async {
+                    self.tunesTableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .none)
                 }
             }
-            DispatchQueue.main.async {
-                self.tunesTableView.reloadData()
-            }
         }
-        task.resume()
-    }
-    
-    func fetchArtworkFor(index:Int) {
-        let media = appleMusicMedia[index]
-        let url = URL(string: media.artworkUrl100)
-        let task = URLSession.shared.dataTask(with: url!) {data, response, error in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "ServerError")
-                return
-            }
-            self.appleMusicMedia[index].image = UIImage(data: data)
-            DispatchQueue.main.async {
-                self.tunesTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
-            }
-        }
-        task.resume()
     }
 
-}
-
-struct AppleMusicMedia {
-    init?(feedResult: [String:Any]) {
-        guard let gArtistId = feedResult["artistId"] as? String,
-            let gArtistName = feedResult["artistName"] as? String,
-            let gArtistURL = feedResult["artistUrl"] as? String,
-            let gArtworkUrl100 = feedResult["artworkUrl100"] as? String,
-            let gCopyright = feedResult["copyright"] as? String,
-            let gId = feedResult["id"] as? String,
-            let gKind = feedResult["kind"] as? String,
-            let gName = feedResult["name"] as? String,
-            let gReleaseDate = feedResult["releaseDate"] as? String,
-            let gUrl = feedResult["url"] as? String
-            else {
-                return nil
-        }
-        artistId = gArtistId
-        artistName = gArtistName
-        artistUrl = gArtistURL
-        artworkUrl100 = gArtworkUrl100
-        copyright = gCopyright
-        id = gId
-        kind = gKind
-        name = gName
-        releaseDate = gReleaseDate
-        url = gUrl
-    }
-    let artistId: String
-    let artistName: String
-    let artistUrl: String
-    let artworkUrl100: String
-    let copyright: String
-    let id: String
-    let kind: String
-    let name: String
-    let releaseDate: String
-    let url: String
-    var image: UIImage?
 }

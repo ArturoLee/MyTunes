@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F524CA322A9C271003E6045 /* MediaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F524CA222A9C271003E6045 /* MediaAPI.swift */; };
 		8F73BAEA22A87F4A007B4ABE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73BAE922A87F4A007B4ABE /* AppDelegate.swift */; };
 		8F73BAEC22A87F4A007B4ABE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73BAEB22A87F4A007B4ABE /* ViewController.swift */; };
 		8F73BAEF22A87F4A007B4ABE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F73BAED22A87F4A007B4ABE /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8F524CA222A9C271003E6045 /* MediaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaAPI.swift; sourceTree = "<group>"; };
 		8F73BAE622A87F49007B4ABE /* MyTunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTunes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F73BAE922A87F4A007B4ABE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F73BAEB22A87F4A007B4ABE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				8F73BAE922A87F4A007B4ABE /* AppDelegate.swift */,
 				8F73BB1722A88100007B4ABE /* MediaTableViewCell.swift */,
 				8F73BAEB22A87F4A007B4ABE /* ViewController.swift */,
+				8F524CA222A9C271003E6045 /* MediaAPI.swift */,
 				8F73BAED22A87F4A007B4ABE /* Main.storyboard */,
 				8F73BAF022A87F4D007B4ABE /* Assets.xcassets */,
 				8F73BAF222A87F4D007B4ABE /* LaunchScreen.storyboard */,
@@ -262,6 +265,7 @@
 				8F73BAEC22A87F4A007B4ABE /* ViewController.swift in Sources */,
 				8F73BB1822A88100007B4ABE /* MediaTableViewCell.swift in Sources */,
 				8F73BAEA22A87F4A007B4ABE /* AppDelegate.swift in Sources */,
+				8F524CA322A9C271003E6045 /* MediaAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
