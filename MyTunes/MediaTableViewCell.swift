@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UIImageColors
 
 class MediaTableViewCell: UITableViewCell {
     
@@ -16,6 +17,7 @@ class MediaTableViewCell: UITableViewCell {
             titleLabel.text = musicMedia.name
             subTitleLabel.text = musicMedia.artistName
             coverImageView.image = musicMedia.image
+            colorizeViews(mediaColors: musicMedia.colors)
         }
     }
     
@@ -90,7 +92,20 @@ class MediaTableViewCell: UITableViewCell {
         stackView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
         stackView.leadingAnchor.constraint(equalTo: self.rankLabel.trailingAnchor, constant: 10).isActive = true
         stackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10).isActive = true
-        
+    }
+    
+    func colorizeViews(mediaColors: UIImageColors?) {
+        guard let colors = mediaColors else {
+            backgroundColor = .white
+            titleLabel.textColor = .black
+            subTitleLabel.textColor = .black
+            rankLabel.textColor = .black
+            return
+        }
+        self.backgroundColor = colors.background
+        self.titleLabel.textColor = colors.primary
+        self.subTitleLabel.textColor = colors.secondary
+        self.rankLabel.textColor = colors.detail
     }
     
     required init?(coder aDecoder: NSCoder) {

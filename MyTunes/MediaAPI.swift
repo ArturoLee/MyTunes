@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import UIImageColors
 
 class MediaAPI {
     static func getMedia(type: MediaType, feed: FeedType, fetchSize: Int, _ completion: @escaping (_ media: [MusicMedia]?) -> Void) {
@@ -60,39 +61,19 @@ enum FeedType: String {
 //Rename
 struct MusicMedia {
     init?(feedResult: [String:Any]) {
-        guard let gArtistId = feedResult["artistId"] as? String,
-            let gArtistName = feedResult["artistName"] as? String,
-            let gArtistURL = feedResult["artistUrl"] as? String,
+        guard let gArtistName = feedResult["artistName"] as? String,
             let gArtworkUrl100 = feedResult["artworkUrl100"] as? String,
-            let gCopyright = feedResult["copyright"] as? String,
-            let gId = feedResult["id"] as? String,
-            let gKind = feedResult["kind"] as? String,
-            let gName = feedResult["name"] as? String,
-            let gReleaseDate = feedResult["releaseDate"] as? String,
-            let gUrl = feedResult["url"] as? String
+            let gName = feedResult["name"] as? String
             else {
                 return nil
         }
-        artistId = gArtistId
         artistName = gArtistName
-        artistUrl = gArtistURL
         artworkUrl100 = gArtworkUrl100
-        copyright = gCopyright
-        id = gId
-        kind = gKind
         name = gName
-        releaseDate = gReleaseDate
-        url = gUrl
     }
-    let artistId: String
-    let artistName: String
-    let artistUrl: String
-    let artworkUrl100: String
-    let copyright: String
-    let id: String
-    let kind: String
     let name: String
-    let releaseDate: String
-    let url: String
+    let artistName: String
+    let artworkUrl100: String
     var image: UIImage?
+    var colors: UIImageColors?
 }

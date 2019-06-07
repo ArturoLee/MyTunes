@@ -106,9 +106,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let media = fetchedMedia[i]
             MediaAPI.getArtwork(artworkURL: media.artworkUrl100) { (image) in
                 self.fetchedMedia[i].image = image
-                DispatchQueue.main.async {
-                    self.tunesTableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .none)
-                }
+                image?.getColors(quality: .lowest, { (colors) in
+                    self.fetchedMedia[i].colors = colors
+                    DispatchQueue.main.async {
+                        self.tunesTableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .none)
+                    }
+                })
             }
         }
     }

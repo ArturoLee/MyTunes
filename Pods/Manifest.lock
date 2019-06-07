@@ -1,0 +1,16 @@
+PODS:
+  - UIImageColors (2.1.0)
+
+DEPENDENCIES:
+  - UIImageColors
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - UIImageColors
+
+SPEC CHECKSUMS:
+  UIImageColors: d2ef3b0877d203cbb06489eeb78ea8b7788caabe
+
+PODFILE CHECKSUM: 5b06d9d94f20dc150a88b7c0c69ea6b1fe79af53
+
+COCOAPODS: 1.7.1
