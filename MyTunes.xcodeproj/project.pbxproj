@@ -16,7 +16,6 @@
 		8F73BAFF22A87F4D007B4ABE /* MyTunesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73BAFE22A87F4D007B4ABE /* MyTunesTests.swift */; };
 		8F73BB0A22A87F4D007B4ABE /* MyTunesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73BB0922A87F4D007B4ABE /* MyTunesUITests.swift */; };
 		8F73BB1822A88100007B4ABE /* MediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73BB1722A88100007B4ABE /* MediaTableViewCell.swift */; };
-		8F7A2AE222A9DF47001FEA7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A2AE122A9DF47001FEA7C /* Main.storyboard */; };
 		9A4B771D0F4E158D797C3164 /* Pods_MyTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1A0E491704A5B6F96984960 /* Pods_MyTunes.framework */; };
 		CAEAF30696F8DEF6CE1AB3DD /* Pods_MyTunesUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB92194681783F0DFBD8F03E /* Pods_MyTunesUITests.framework */; };
 /* End PBXBuildFile section */
@@ -56,7 +55,6 @@
 		8F73BB0922A87F4D007B4ABE /* MyTunesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTunesUITests.swift; sourceTree = "<group>"; };
 		8F73BB0B22A87F4D007B4ABE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F73BB1722A88100007B4ABE /* MediaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewCell.swift; sourceTree = "<group>"; };
-		8F7A2AE122A9DF47001FEA7C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../.Trash/Main.storyboard; sourceTree = "<group>"; };
 		A1A0E491704A5B6F96984960 /* Pods_MyTunes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTunes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B417A718745BA6CC68B61201 /* Pods-MyTunes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTunes.debug.xcconfig"; path = "Target Support Files/Pods-MyTunes/Pods-MyTunes.debug.xcconfig"; sourceTree = "<group>"; };
 		DB92194681783F0DFBD8F03E /* Pods_MyTunesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTunesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,7 +133,6 @@
 				8F73BB1722A88100007B4ABE /* MediaTableViewCell.swift */,
 				8F73BAEB22A87F4A007B4ABE /* ViewController.swift */,
 				8F524CA222A9C271003E6045 /* MediaAPI.swift */,
-				8F7A2AE122A9DF47001FEA7C /* Main.storyboard */,
 				8F73BAF022A87F4D007B4ABE /* Assets.xcassets */,
 				8F73BAF222A87F4D007B4ABE /* LaunchScreen.storyboard */,
 				8F73BAF522A87F4D007B4ABE /* Info.plist */,
@@ -279,7 +276,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F7A2AE222A9DF47001FEA7C /* Main.storyboard in Resources */,
 				8F73BAF422A87F4D007B4ABE /* LaunchScreen.storyboard in Resources */,
 				8F73BAF122A87F4D007B4ABE /* Assets.xcassets in Resources */,
 			);
