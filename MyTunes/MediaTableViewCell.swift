@@ -14,8 +14,8 @@ class MediaTableViewCell: UITableViewCell {
     var media: MusicMedia? {
         didSet {
             guard let musicMedia = media else {return}
-            titleLabel.text = musicMedia.name
-            subTitleLabel.text = musicMedia.artistName
+            titleLabel.text = musicMedia.media.name
+            subTitleLabel.text = musicMedia.media.artistName
             coverImageView.image = musicMedia.image
             colorizeViews(mediaColors: musicMedia.colors)
         }

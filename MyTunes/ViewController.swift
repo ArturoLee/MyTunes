@@ -104,7 +104,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func requestArtwork() {
         for i in 0..<self.fetchedMedia.count {
             let media = fetchedMedia[i]
-            MediaAPI.getArtwork(artworkURL: media.artworkUrl100) { (image) in
+            MediaAPI.getArtwork(artworkURL: media.media.artworkUrl100) { (image) in
                 self.fetchedMedia[i].image = image
                 image?.getColors(quality: .lowest, { (colors) in
                     self.fetchedMedia[i].colors = colors

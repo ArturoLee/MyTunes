@@ -19,17 +19,9 @@ class MediaAPI {
                 completion(nil)
                 return
             }
-            let json = try? JSONSerialization.jsonObject(with: data, options: [])
-            var mediaResults: [MusicMedia] = []
-            if let dic = json! as? [String:Any], let feed = dic["feed"] as? [String:Any], let results = feed["results"] as? [[String:Any]] {
-                for i in 0..<results.count {
-                    let media = results[i]
-                    if let musicMedia = MusicMedia(feedResult: media) {
-                        mediaResults.append(musicMedia)
-                    }
-                }
-            }
+            let mediaResults = self.parseJSON(data)
             completion(mediaResults)
+            
         }
         task.resume()
     }
@@ -46,6 +38,21 @@ class MediaAPI {
         }
         task.resume()
     }
+    
+    static func parseJSON(_ musicData: Data) -> [MusicMedia]? {
+        let decoder = JSONDecoder()
+        do {
+            let decodedData = try decoder.decode(FeedData.self, from: musicData)
+            var allMusicMedia: [MusicMedia] = []
+            for result in decodedData.feed.results {
+                allMusicMedia.append(MusicMedia(media: result))
+            }
+            return allMusicMedia
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
 }
 
 enum MediaType: String {
@@ -58,22 +65,22 @@ enum FeedType: String {
     case topAlbums = "top-albums"
 }
 
-//Rename
-struct MusicMedia {
-    init?(feedResult: [String:Any]) {
-        guard let gArtistName = feedResult["artistName"] as? String,
-            let gArtworkUrl100 = feedResult["artworkUrl100"] as? String,
-            let gName = feedResult["name"] as? String
-            else {
-                return nil
-        }
-        artistName = gArtistName
-        artworkUrl100 = gArtworkUrl100
-        name = gName
-    }
+struct FeedData: Codable {
+    let feed: Feed
+}
+
+struct Feed: Codable {
+    let results: [Media]
+}
+
+struct Media: Codable {
     let name: String
     let artistName: String
     let artworkUrl100: String
+}
+
+struct MusicMedia {
+    let media: Media
     var image: UIImage?
     var colors: UIImageColors?
 }
